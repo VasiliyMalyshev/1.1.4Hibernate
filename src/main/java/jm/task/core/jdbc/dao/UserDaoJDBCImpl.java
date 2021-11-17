@@ -16,10 +16,8 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void createUsersTable() {
 
-        String sqlCommand = "CREATE TABLE users (id BIGINT NOT NULL AUTO_INCREMENT, name VARCHAR(45), lastName VARCHAR(45), age SMALLINT NOT NULL, PRIMARY KEY (id))";
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlCommand)) {
-            preparedStatement.executeUpdate(sqlCommand);
+        try (PreparedStatement preparedStatement = connection.prepareStatement("CREATE TABLE users (id BIGINT NOT NULL AUTO_INCREMENT, name VARCHAR(45), lastName VARCHAR(45), age SMALLINT NOT NULL, PRIMARY KEY (id))")) {
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -39,8 +37,6 @@ public class UserDaoJDBCImpl implements UserDao {
             prepareStatement.setString(2, lastName);
             prepareStatement.setByte(3, age);
             prepareStatement.executeUpdate();
-            connection.setAutoCommit(false);
-            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
             try {

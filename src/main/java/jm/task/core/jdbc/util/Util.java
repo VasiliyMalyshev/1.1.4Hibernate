@@ -21,10 +21,11 @@ public class Util {
 
     public static Connection getConnection() {
         Connection connection = null;
+
         try {
             Class.forName(DRIVER);
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
+            connection.setAutoCommit(false);
         } catch (ClassNotFoundException | SQLException throwables) {
             throwables.printStackTrace();
         }
